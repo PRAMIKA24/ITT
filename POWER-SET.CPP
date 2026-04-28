@@ -1,33 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std ;
 
-// just apply the pick and not pick technique
+// did not used any concept of bit manipulation but used basic recursion technique of pick and not pick
 
 class Solution{
 	public:
-        void recursion (string temp, string s , int index , vector<string>&ans){
-            
+        void solve (string s , int ind , string temp , vector<string>&ans){
             // base condition
-            if(index == s.length()) {
-                if(temp == ""){
-                    return ;
-                    // since according to the problem we dont need to print the empty set
-                }
-                ans.push_back(temp) ; return ;
+            if(ind == s.length()){
+                ans.push_back(temp); 
+                return ;
             }
 
             // pick
-            temp += s[index] ;
-            recursion(temp , s , index +1 , ans) ;
+            temp += s[ind] ;
+            solve(s ,ind +1 , temp,  ans) ;
 
             // not pick
             temp.pop_back() ;
-            recursion(temp , s,  index +1 , ans) ;
+            solve(s, ind+1, temp , ans) ;
 
         }
 		vector<string> AllPossibleStrings(string s){
 		    // Code here
-            vector<string> ans ;
-            recursion("", s, 0 , ans) ; sort(ans.begin(), ans.end()) ; return ans;
+            vector<string> ans; 
+            solve(s, 0, "" , ans) ;
+            ans.pop_back() ; sort(ans.begin(), ans.end()) ;
+            return ans ;
+
 		}
 };
